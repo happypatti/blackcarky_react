@@ -103,7 +103,7 @@ const CarServiceForm = () => {
         </div>
       )}
       <LoadScript googleMapsApiKey={''}>
-      {console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)}
+      {console.log(process.env.GOOGLE_API_KEY || '')}
         <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={13}>
           {origin && destination && (
             <DirectionsService
