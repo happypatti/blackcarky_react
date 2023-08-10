@@ -102,8 +102,8 @@ const CarServiceForm = () => {
           <p className="block text-gray-700 font-bold mb-2">Estimate: ${estimate.toFixed(2)}</p>
         </div>
       )}
-      <LoadScript googleMapsApiKey={''}>
-      {console.log(process.env.GOOGLE_API_KEY || '')}
+      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}>
+      {console.log(process.env.NEXT_PUBLIC_GOOGLE_API_KEY)}
         <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={13}>
           {origin && destination && (
             <DirectionsService
