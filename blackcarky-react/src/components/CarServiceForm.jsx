@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, DirectionsService } from '@react-google-maps/api';
-import Script from 'next/script';
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
 const mapContainerStyle = {
   width: '100%',
@@ -18,6 +17,7 @@ const CarServiceForm = () => {
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
   const [estimate, setEstimate] = useState(0);
+  const [directions, setDirections] = useState(null);
 
   const handleOriginChange = (event) => {
     setOrigin(event.target.value);
@@ -37,30 +37,44 @@ const CarServiceForm = () => {
       setDistance(distance);
       setDuration(duration);
       setEstimate(estimate);
+      setDirections(response);
     }
   };
 
+  useEffect(() => {
+    if (origin && destination) {
+      const directionsService = new window.google.maps.DirectionsService();
+
+      directionsService.route(
+        {
+          origin,
+          destination,
+          travelMode: 'DRIVING',
+        },
+        handleDirectionsResponse
+      );
+    }
+  }, [origin, destination]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+  };
 
-    const directionsService = new window.google.maps.DirectionsService();
-
-    directionsService.route(
-      {
-        origin,
-        destination,
-        travelMode: 'DRIVING',
-      },
-      handleDirectionsResponse
-    );
+  const handleReset = () => {
+    setOrigin('');
+    setDestination('');
+    setDistance(0);
+    setDuration(0);
+    setEstimate(0);
+    setDirections(null);
   };
 
   return (
     <div className="max-w-md mx-auto">
-        <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
         Get an Estimate{' '}
         <span className="text-blue-600">Car Service</span>
-        </h1>
+      </h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label htmlFor="origin" className="block text-gray-700 font-bold mb-2">
@@ -93,8 +107,16 @@ const CarServiceForm = () => {
           >
             Get Estimate
           </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Reset
+          </button>
         </div>
       </form>
+      <p className="text-gray-700 font-bold mb-2">Note: The map and rate will auto-populate when entering details.</p>
       {distance > 0 && duration > 0 && estimate > 0 && (
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <p className="block text-gray-700 font-bold mb-2">Distance: {distance.toFixed(2)} miles</p>
@@ -103,23 +125,12 @@ const CarServiceForm = () => {
         </div>
       )}
       <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}>
-        <GoogleMap mapContainerStyle={mapContainerStyle} center={center} zoom={13}>
-          {origin && destination && (
-            <DirectionsService
-              options={{
-                origin,
-                destination,
-                travelMode: 'DRIVING',
-              }}
-              callback={handleDirectionsResponse}
-            />
-          )}
+        <GoogleMap mapContainerClassName="w-full h-96" center={center} zoom={14}>
+          {directions && <DirectionsRenderer directions={directions} />}
         </GoogleMap>
       </LoadScript>
     </div>
   );
 };
-
-
 
   export default CarServiceForm;

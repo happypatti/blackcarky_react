@@ -11,28 +11,28 @@ export function Footer() {
           <nav className="mt-10 text-sm" aria-label="quick links">
             <ul className="-my-1 flex justify-center space-x-6">
               <li>
-                <Link href="#features">
+                <Link href="/#features">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                     Services
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="#testimonials">
+                <Link href="/#features">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                     Vehicles
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="#pricing">
+                <Link href="/#features">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                     Pricing
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="#pricing">
+                <Link href="/#features">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                     Drivers
                   </a>
