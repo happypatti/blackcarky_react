@@ -30,61 +30,158 @@ function RideRequestForm() {
     // Send the form data to your API endpoint
     const response = await fetch('/api/submit-form', {
       method: 'POST',
-      body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(formData),
     })
 
-    if (response.ok) {
-      const data = await response.json()
-      setFormResponse(data.formData)
-      setSubmitted(true)
-    } else {
-      console.log('Error submitting form')
-    }
+    const data = await response.json()
 
     setSubmitting(false)
+    setSubmitted(true)
+    setFormResponse(data)
   }
 
   return (
-    <div>
-      {submitted ? (
-        <div>
-          <p>Thank you for your submission!</p>
-          <p>Here's the data you submitted:</p>
-          <pre>{JSON.stringify(formResponse, null, 2)}</pre>
+    <div className="max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+            Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Name:</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-
-          <label htmlFor="email">Email:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
-
-          <label htmlFor="pickupLocation">Pickup Location:</label>
-          <input type="text" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} />
-
-          <label htmlFor="dropoffLocation">Dropoff Location:</label>
-          <input type="text" name="dropoffLocation" value={formData.dropoffLocation} onChange={handleChange} />
-
-          <label htmlFor="pickupDate">Pickup Date:</label>
-          <input type="date" name="pickupDate" value={formData.pickupDate} onChange={handleChange} />
-
-          <label htmlFor="pickupTime">Pickup Time:</label>
-          <input type="time" name="pickupTime" value={formData.pickupTime} onChange={handleChange} />
-
-          <label htmlFor="numPassengers">Number of Passengers:</label>
-          <input type="number" name="numPassengers" value={formData.numPassengers} onChange={handleChange} />
-
-          <label htmlFor="specialRequests">Special Requests:</label>
-          <textarea name="specialRequests" value={formData.specialRequests} onChange={handleChange} />
-
-          <button type="submit" disabled={submitting}>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="pickupLocation">
+            Pickup Location
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="pickupLocation"
+            name="pickupLocation"
+            type="text"
+            placeholder="Pickup Location"
+            value={formData.pickupLocation}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="dropoffLocation">
+            Dropoff Location
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="dropoffLocation"
+            name="dropoffLocation"
+            type="text"
+            placeholder="Dropoff Location"
+            value={formData.dropoffLocation}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="pickupDate">
+            Pickup Date
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="pickupDate"
+            name="pickupDate"
+            type="date"
+            placeholder="Pickup Date"
+            value={formData.pickupDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="pickupTime">
+            Pickup Time
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="pickupTime"
+            name="pickupTime"
+            type="time"
+            placeholder="Pickup Time"
+            value={formData.pickupTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="numPassengers">
+            Number of Passengers
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="numPassengers"
+            name="numPassengers"
+            type="number"
+            placeholder="Number of Passengers"
+            value={formData.numPassengers}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="specialRequests">
+            Special Requests
+          </label>
+          <textarea
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="specialRequests"
+            name="specialRequests"
+            placeholder="Special Requests"
+            value={formData.specialRequests}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+            disabled={submitting}
+          >
             {submitting ? 'Submitting...' : 'Submit'}
           </button>
-        </form>
+          {submitted && (
+            <div className="text-green-500 font-bold">Form submitted successfully!</div>
+          )}
+        </div>
+      </form>
+      {formResponse && (
+        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <h2 className="text-lg font-bold mb-4">Form Response</h2>
+          <pre>{JSON.stringify(formResponse, null, 2)}</pre>
+        </div>
       )}
     </div>
   )
