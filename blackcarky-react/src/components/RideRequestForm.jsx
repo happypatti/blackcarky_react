@@ -1,4 +1,9 @@
-import { useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
+import { CardElement, Elements, useStripe, useElements } from '@stripe/react-stripe-js'
+
+const stripePromise = loadStripe('')
+import React,{ useState } from 'react'
+
 
 function RideRequestForm() {
   const [formData, setFormData] = useState({
@@ -10,10 +15,16 @@ function RideRequestForm() {
     pickupTime: '',
     numPassengers: '',
     specialRequests: '',
+    cardNumber: '',
+    cardExpMonth: '',
+    cardExpYear: '',
+    cardCvc: '',
   })
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [formResponse, setFormResponse] = useState(null)
+
+  const elements = useElements()
 
   const handleChange = (event) => {
     setFormData({
@@ -28,7 +39,7 @@ function RideRequestForm() {
     setSubmitting(true)
 
     // Send the form data to your API endpoint
-    const response = await fetch('/api/submit-form', {
+    const response = await fetch('/api/reservation-form', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,152 +49,108 @@ function RideRequestForm() {
 
     const data = await response.json()
 
+    // Create a payment intent and redirect the user to the Stripe checkout page
+    const stripe = await stripePromise
+    const paymentIntent = await stripe.confirmCardPayment(data.clientSecret, {
+      payment_method: {
+          card: {
+            number: formData.cardNumber,
+            exp_month: formData.cardExpMonth,
+            exp_year: formData.cardExpYear,
+            cvc: formData.cardCvc,
+          },
+        billing_details: {
+          name: formData.name,
+          email: formData.email,
+        },
+      },
+    });
+
+    if (paymentIntent.error) {
+      console.error(paymentIntent.error)
+      // Handle payment intent error
+    } else {
+      window.location.href = data.checkoutUrl
+    }
+
     setSubmitting(false)
     setSubmitted(true)
     setFormResponse(data)
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-            Name
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="pickupLocation">
-            Pickup Location
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="pickupLocation"
-            name="pickupLocation"
-            type="text"
-            placeholder="Pickup Location"
-            value={formData.pickupLocation}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="dropoffLocation">
-            Dropoff Location
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="dropoffLocation"
-            name="dropoffLocation"
-            type="text"
-            placeholder="Dropoff Location"
-            value={formData.dropoffLocation}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="pickupDate">
-            Pickup Date
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="pickupDate"
-            name="pickupDate"
-            type="date"
-            placeholder="Pickup Date"
-            value={formData.pickupDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="pickupTime">
-            Pickup Time
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="pickupTime"
-            name="pickupTime"
-            type="time"
-            placeholder="Pickup Time"
-            value={formData.pickupTime}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="numPassengers">
-            Number of Passengers
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="numPassengers"
-            name="numPassengers"
-            type="number"
-            placeholder="Number of Passengers"
-            value={formData.numPassengers}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="specialRequests">
-            Special Requests
-          </label>
-          <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="specialRequests"
-            name="specialRequests"
-            placeholder="Special Requests"
-            value={formData.specialRequests}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-            disabled={submitting}
-          >
-            {submitting ? 'Submitting...' : 'Submit'}
-          </button>
-          {submitted && (
-            <div className="text-green-500 font-bold">Form submitted successfully!</div>
-          )}
-        </div>
-      </form>
-      {formResponse && (
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h2 className="text-lg font-bold mb-4">Form Response</h2>
-          <pre>{JSON.stringify(formResponse, null, 2)}</pre>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+      <div className="mb-4">
+        <label htmlFor="name" className="block mb-2 font-bold text-gray-700">Name</label>
+        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="email" className="block mb-2 font-bold text-gray-700">Email</label>
+        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="pickupLocation" className="block mb-2 font-bold text-gray-700">Pickup Location</label>
+        <input type="text" id="pickupLocation" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="dropoffLocation" className="block mb-2 font-bold text-gray-700">Dropoff Location</label>
+        <input type="text" id="dropoffLocation" name="dropoffLocation" value={formData.dropoffLocation} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="pickupDate" className="block mb-2 font-bold text-gray-700">Pickup Date</label>
+        <input type="date" id="pickupDate" name="pickupDate" value={formData.pickupDate} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="pickupTime" className="block mb-2 font-bold text-gray-700">Pickup Time</label>
+        <input type="time" id="pickupTime" name="pickupTime" value={formData.pickupTime} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="numPassengers" className="block mb-2 font-bold text-gray-700">Number of Passengers</label>
+        <input type="number" id="numPassengers" name="numPassengers" value={formData.numPassengers} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="specialRequests" className="block mb-2 font-bold text-gray-700">Special Requests</label>
+        <textarea id="specialRequests" name="specialRequests" value={formData.specialRequests} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="cardNumber" className="block mb-2 font-bold text-gray-700">Card Number</label>
+        <input type="text" id="cardNumber" name="cardNumber" value={formData.cardNumber} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="cardExpMonth" className="block mb-2 font-bold text-gray-700">Expiration Month</label>
+        <input type="text" id="cardExpMonth" name="cardExpMonth" value={formData.cardExpMonth} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="cardExpYear" className="block mb-2 font-bold text-gray-700">Expiration Year</label>
+        <input type="text" id="cardExpYear" name="cardExpYear" value={formData.cardExpYear} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="cardCvc" className="block mb-2 font-bold text-gray-700">CVC</label>
+        <input type="text" id="cardCvc" name="cardCvc" value={formData.cardCvc} onChange={handleChange} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+      </div>
+
+      <button type="submit" disabled={submitting} className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        {submitting ? 'Submitting...' : 'Submit'}
+      </button>
+
+      {submitted && formResponse && (
+        <div className="mt-4">
+          <p className="mb-2 font-bold text-gray-700">Reservation submitted successfully!</p>
+          <p>Payment intent client secret: {formResponse.clientSecret}</p>
         </div>
       )}
-    </div>
+    </form>
   )
 }
 
