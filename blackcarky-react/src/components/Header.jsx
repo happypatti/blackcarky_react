@@ -112,32 +112,32 @@ export function Header() {
               <Link href="/#">
                 <a>
                   <span className="sr-only">Home</span>
-                  <Logo className="h-10 w-auto" />
+                  <Logo className="h-12 w-12" />
                 </a>
               </Link>
             </li>
-            <li className="ml-6 hidden md:block">
+            <li className="ml-auto hidden md:block">
               <Link href="/#features">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   Servies
                 </a>
               </Link>
             </li>
-            <li className="ml-6 hidden md:block">
+            <li className="ml-auto hidden md:block">
               <Link href="/vehicles">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   Vehicles
                 </a>
               </Link>
             </li>
-            <li className="ml-6 hidden md:block">
+            <li className="ml-auto hidden md:block">
               <Link href="/drivers">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   Drivers
                 </a>
               </Link>
             </li>
-            <li className="ml-6 hidden md:block">
+            <li className="ml-auto hidden md:block">
               <Link href="/aboutus">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   About Us
