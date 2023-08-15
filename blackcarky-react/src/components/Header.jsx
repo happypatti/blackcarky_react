@@ -109,7 +109,7 @@ export function Header() {
         <nav className="relative z-50 text-sm">
           <ul className="flex items-center">
             <li>
-              <Link href="#">
+              <Link href="/#">
                 <a>
                   <span className="sr-only">Home</span>
                   <Logo className="h-10 w-auto" />
@@ -117,28 +117,28 @@ export function Header() {
               </Link>
             </li>
             <li className="ml-6 hidden md:block">
-              <Link href="#features">
+              <Link href="/#features">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   Servies
                 </a>
               </Link>
             </li>
             <li className="ml-6 hidden md:block">
-              <Link href="#testimonials">
+              <Link href="/vehicles">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   Vehicles
                 </a>
               </Link>
             </li>
             <li className="ml-6 hidden md:block">
-              <Link href="#pricing">
+              <Link href="/drivers">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   Drivers
                 </a>
               </Link>
             </li>
             <li className="ml-6 hidden md:block">
-              <Link href="#pricing">
+              <Link href="/aboutus">
                 <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                   About Us
                 </a>
