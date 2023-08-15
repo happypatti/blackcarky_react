@@ -89,7 +89,7 @@ function MobileNavigation() {
                   </Link>
                 </li>
                 <li className="border-t border-slate-300/40 pt-4">
-                  <Link href="/login">
+                  <Link href="/reserve">
                     <a className="block w-full">Reserve Now</a>
                   </Link>
                 </li>
@@ -147,7 +147,7 @@ export function Header() {
             <li className="ml-auto hidden md:block">
             </li>
             <li className="ml-auto md:ml-8">
-              <ButtonLink href="/login" color="blue">
+              <ButtonLink href="/reserve" color="blue">
                 <span>
                   Reserve Now
                 </span>

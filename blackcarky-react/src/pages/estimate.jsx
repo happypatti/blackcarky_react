@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import Link from 'next/link'
-
-import { AuthLayout } from '@/components/AuthLayout'
 import { Header } from '@/components/Header'
+import { AuthLayout } from '@/components/AuthLayout'
 import CarServiceForm from '@/components/CarServiceForm'
 import { Footer } from '@/components/Footer'
 
