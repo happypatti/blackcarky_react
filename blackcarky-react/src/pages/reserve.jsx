@@ -4,9 +4,11 @@ import RideRequestForm from '../components/RideRequestForm'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import { Footer } from '@/components/Footer'
+import CarServiceForm from '@/components/CarServiceForm'
 
 export default function Login() {
   const stripePromise = loadStripe('')
+  
   return (
       <AuthLayout>
       <Head>
@@ -18,6 +20,7 @@ export default function Login() {
       </Head>
       <main>
       <Elements stripe={stripePromise}>
+        <CarServiceForm />
         <RideRequestForm />
       </Elements>
       </main>

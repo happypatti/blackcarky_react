@@ -2,7 +2,7 @@ const stripe = require('stripe')('')
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { name, email, pickupLocation, dropoffLocation, pickupDate, pickupTime, numPassengers, specialRequests, cardNumber, cardExpMonth, cardExpYear, cardCvc } = req.body
+        const { name, email, phone, pickupLocation, dropoffLocation, pickupDate, pickupTime, numPassengers, specialRequests, cardNumber, cardExpMonth, cardExpYear, cardCvc } = req.body
       
         try {
           // Create a payment intent on the server-side

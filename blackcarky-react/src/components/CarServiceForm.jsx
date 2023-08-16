@@ -72,7 +72,7 @@ const CarServiceForm = () => {
   return (
     <div className="max-w-md mx-auto">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-        Get an Estimate{' '}
+        Reserve{' '}
         <span className="text-blue-600">Car Service</span>
       </h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -105,7 +105,7 @@ const CarServiceForm = () => {
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Get Estimate
+            Pick Me Up!
           </button>
           <button
             type="button"
@@ -116,7 +116,11 @@ const CarServiceForm = () => {
           </button>
         </div>
       </form>
-      <p className="text-gray-700 font-bold mb-2">Note: The map and rate will auto-populate when entering details.</p>
+      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}>
+        <GoogleMap mapContainerClassName="w-full h-96" center={center} zoom={14}>
+          {directions && <DirectionsRenderer directions={directions} />}
+        </GoogleMap>
+      </LoadScript>
       {distance > 0 && duration > 0 && estimate > 0 && (
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <p className="block text-gray-700 font-bold mb-2">Distance: {distance.toFixed(2)} miles</p>
@@ -124,11 +128,6 @@ const CarServiceForm = () => {
           <p className="block text-gray-700 font-bold mb-2">Estimate: ${estimate.toFixed(2)}</p>
         </div>
       )}
-      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}>
-        <GoogleMap mapContainerClassName="w-full h-96" center={center} zoom={14}>
-          {directions && <DirectionsRenderer directions={directions} />}
-        </GoogleMap>
-      </LoadScript>
     </div>
   );
 };
