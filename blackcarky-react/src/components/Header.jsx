@@ -34,7 +34,9 @@ function MobileNavigation() {
                 })}
               />
             </svg>
+
           </Popover.Button>
+          
           <Transition.Root>
             <Transition.Child
               as={Fragment}
@@ -56,10 +58,12 @@ function MobileNavigation() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
+              
               <Popover.Panel
                 as="ul"
                 className="absolute inset-x-0 top-full mt-4 origin-top space-y-4 rounded-2xl bg-white p-6 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
               >
+                
                 <li>
                   <Link href="#tires">
                     <a className="block w-full" onClick={() => close()}>
@@ -92,8 +96,10 @@ function MobileNavigation() {
             </Transition.Child>
           </Transition.Root>
         </>
+        
       )}
     </Popover>
+    
   )
 }
 
@@ -103,7 +109,7 @@ export function Header() {
       <Container>
         <nav className="relative z-50 text-sm">
           <ul className="flex items-center">
-            <li>
+            <li className="ml-auto hidden md:block">
               <Link href="/#">
                 <a>
                   <span className="sr-only">Home</span>
