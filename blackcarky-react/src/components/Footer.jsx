@@ -38,6 +38,11 @@ export function Footer() {
                   </a>
                 </Link>
               </li>
+              <li>
+                  <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+                    Call us at 859-327-3053
+                  </a>
+              </li>
             </ul>
           </nav>
         </div>

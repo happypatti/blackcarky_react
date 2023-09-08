@@ -63,7 +63,9 @@ function MobileNavigation() {
                 as="ul"
                 className="absolute inset-x-0 top-full mt-4 origin-top space-y-4 rounded-2xl bg-white p-6 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
               >
-                
+                <li>
+                  Call us Today 859-327-3053
+                </li>
                 <li>
                   <Link href="#tires">
                     <a className="block w-full" onClick={() => close()}>
@@ -110,6 +112,11 @@ export function Header() {
         <nav className="relative z-50 text-sm">
           <ul className="flex items-center">
             <li className="ml-auto hidden md:block">
+            <li>
+             <a className="rounded-lg py-1 px-2 text-white hover:bg-slate-700 hover:text-slate-900">
+              Call us Today! 859-327-3053
+             </a>
+            </li>
               <Link href="/#">
                 <a>
                   <span className="sr-only">Home</span>

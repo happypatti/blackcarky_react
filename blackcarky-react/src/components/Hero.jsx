@@ -50,7 +50,11 @@ export function Hero() {
         service, and anything in-between.
       </p>
       <br></br>
-
+      <h1 className="mx-auto max-w-4xl font-display text-2xl font-medium tracking-tight text-white sm:text-5xl">
+        CALL US AT 859-327-3053
+      </h1>
+      <br></br>
+      <br></br>
       <h1 className="mx-auto max-w-4xl font-display text-2xl font-medium tracking-tight text-white sm:text-5xl">
         FIND US{' '}
         <br></br>
@@ -63,10 +67,6 @@ export function Hero() {
       </p>
 
       <div className="mx-auto mt-6 max-w-2xl h-96" ref={mapRef} />
-
-      <button onClick={handleGetDirections} className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-  Get Directions
-</button>
     </Container>
   )
 }

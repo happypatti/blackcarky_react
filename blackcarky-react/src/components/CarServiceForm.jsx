@@ -42,6 +42,7 @@ function CarServiceForm(){
                 <dd>
                   <p>1225 Eastland Dr.</p>
                   <p>Lexington, KY 40505</p>
+                  <p>Call us at 859-327-3053</p>
                 </dd>
               </div>
               <div className="mt-6">
