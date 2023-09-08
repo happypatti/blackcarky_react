@@ -16,7 +16,7 @@ export default function Home() {
           content="Most bookkeeping software is accurate, but hard to use. We make the opposite trade-off, and hope you don’t get audited."
         />
       </Head>
-      <div class="relative bg-black overflow-hidden">
+      <div className="relative bg-black overflow-hidden">
       <Header />
       <main>
         <Hero />
