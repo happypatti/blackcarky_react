@@ -12,17 +12,13 @@ export default function Login() {
   return (
       <AuthLayout>
       <Head>
-        <title>Black Car KY</title>
         <meta
           name="description"
           content="Get there in style."
         />
       </Head>
       <main>
-      <Elements stripe={stripePromise}>
         <CarServiceForm />
-        <RideRequestForm />
-      </Elements>
       </main>
       <Footer />
       </AuthLayout>

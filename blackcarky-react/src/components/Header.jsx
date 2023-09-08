@@ -61,36 +61,31 @@ function MobileNavigation() {
                 className="absolute inset-x-0 top-full mt-4 origin-top space-y-4 rounded-2xl bg-white p-6 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
               >
                 <li>
-                  <Link href="#features">
+                  <Link href="#tires">
                     <a className="block w-full" onClick={() => close()}>
-                      Services
+                      Tires
                     </a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#testimonials">
+                  <Link href="#tires">
                     <a className="block w-full" onClick={() => close()}>
-                      Vehicles
+                      Auto Repair
                     </a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#pricing">
-                    <a className="block w-full" onClick={() => close()}>
-                      Drivers
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#pricing">
+                  <Link href="#">
                     <a className="block w-full" onClick={() => close()}>
                       About Us
                     </a>
                   </Link>
                 </li>
-                <li className="border-t border-slate-300/40 pt-4">
-                  <Link href="/reserve">
-                    <a className="block w-full">Reserve Now</a>
+                <li>
+                  <Link href="#contact">
+                    <a className="block w-full" onClick={() => close()}>
+                      Contact Us
+                    </a>
                   </Link>
                 </li>
               </Popover.Panel>
@@ -117,41 +112,35 @@ export function Header() {
               </Link>
             </li>
             <li className="ml-auto hidden md:block">
-              <Link href="/#features">
-                <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                  Servies
+              <Link href="#tires">
+                <a className="rounded-lg py-1 px-2 text-white hover:bg-slate-700 hover:text-slate-900">
+                  Tires
                 </a>
               </Link>
             </li>
             <li className="ml-auto hidden md:block">
-              <Link href="/vehicles">
-                <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                  Vehicles
+              <Link href="#tires">
+                <a className="rounded-lg py-1 px-2 text-white hover:bg-slate-700 hover:text-slate-900">
+                  Auto Repair
                 </a>
               </Link>
             </li>
             <li className="ml-auto hidden md:block">
-              <Link href="/drivers">
-                <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                  Drivers
-                </a>
-              </Link>
-            </li>
-            <li className="ml-auto hidden md:block">
-              <Link href="/aboutus">
-                <a className="rounded-lg py-1 px-2 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="#">
+                <a className="rounded-lg py-1 px-2 text-white hover:bg-slate-700 hover:text-slate-900">
                   About Us
+                </a>
+              </Link>
+              </li>c
+
+            <li className="ml-auto hidden md:block">
+              <Link href="#contact">
+                <a className="rounded-lg py-1 px-2 text-white hover:bg-slate-700 hover:text-slate-900">
+                  Contact Us
                 </a>
               </Link>
               </li>
             <li className="ml-auto hidden md:block">
-            </li>
-            <li className="ml-auto md:ml-8">
-              <ButtonLink href="/reserve" color="blue">
-                <span>
-                  Reserve Now
-                </span>
-              </ButtonLink>
             </li>
             <li className="ml-5 -mr-1 md:hidden">
               <MobileNavigation />

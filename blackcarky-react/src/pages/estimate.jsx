@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Header } from '@/components/Header'
 import { AuthLayout } from '@/components/AuthLayout'
-import CarServiceForm from '@/components/CarServiceForm'
+import CarServiceForm from '@/components/contactForm'
 import { Footer } from '@/components/Footer'
 
 export default function Login() {

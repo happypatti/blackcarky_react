@@ -1,135 +1,130 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { Fragment } from 'react'
+import Link from 'next/link'
 
-const mapContainerStyle = {
-  width: '100%',
-  height: '400px',
-};
-
-const center = {
-  lat: 40.712776,
-  lng: -74.005974,
-};
-
-const CarServiceForm = () => {
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [distance, setDistance] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [estimate, setEstimate] = useState(0);
-  const [directions, setDirections] = useState(null);
-
-  const handleOriginChange = (event) => {
-    setOrigin(event.target.value);
-  };
-
-  const handleDestinationChange = (event) => {
-    setDestination(event.target.value);
-  };
-
-  const handleDirectionsResponse = (response) => {
-    if (response.status === 'OK') {
-      const route = response.routes[0];
-      const distance = route.legs.reduce((acc, leg) => acc + leg.distance.value, 0) / 1609.34; // convert meters to miles
-      const duration = route.legs.reduce((acc, leg) => acc + leg.duration.value, 0) / 60; // convert seconds to minutes
-      const estimate = distance * 10; // $2.50 per mile
-
-      setDistance(distance);
-      setDuration(duration);
-      setEstimate(estimate);
-      setDirections(response);
-    }
-  };
-
-  useEffect(() => {
-    if (origin && destination) {
-      const directionsService = new window.google.maps.DirectionsService();
-
-      directionsService.route(
-        {
-          origin,
-          destination,
-          travelMode: 'DRIVING',
-        },
-        handleDirectionsResponse
-      );
-    }
-  }, [origin, destination]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleReset = () => {
-    setOrigin('');
-    setDestination('');
-    setDistance(0);
-    setDuration(0);
-    setEstimate(0);
-    setDirections(null);
-  };
-
+function CarServiceForm(){
+/*
+  This example requires Tailwind CSS v2.0+ 
+  
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+*/
   return (
-    <div className="max-w-md mx-auto">
-      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-        Reserve{' '}
-        <span className="text-blue-600">Car Service</span>
-      </h1>
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label htmlFor="origin" className="block text-gray-700 font-bold mb-2">
-            Origin:
-          </label>
-          <input
-            type="text"
-            id="origin"
-            value={origin}
-            onChange={handleOriginChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+    <section
+    id="contact"
+    aria-labelledby="features-title"
+    className="relative overflow-hidden bg-black pt-20 pb-28 sm:py-32"
+  >
+    <div className="relative bg-black">
+      <div className="absolute inset-0">
+        <div className="absolute inset-y-0 left-0 w-1/2 bg-black" />
+      </div>
+      <div className="relative max-w-7xl mx-auto lg:grid lg:grid-cols-5">
+        <div className="bg-black py-16 px-4 sm:px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12">
+          <div className="max-w-lg mx-auto">
+            <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">Send us a message</h2>
+            <p className="mt-3 text-lg leading-6 text-blue-100">
+             Let us know how we can help. We typically respond within a few hours.
+            </p>
+            <dl className="mt-8 text-base text-blue-100">
+              <div>
+                <dt className="sr-only">Postal address</dt>
+                <dd>
+                  <p>1225 Eastland Dr.</p>
+                  <p>Lexington, KY 40505</p>
+                </dd>
+              </div>
+              <div className="mt-6">
+                <dt className="sr-only">Phone number</dt>
+                <dd className="flex">
+                </dd>
+              </div>
+
+            </dl>
+          </div>
         </div>
-        <div className="mb-4">
-          <label htmlFor="destination" className="block text-gray-700 font-bold mb-2">
-            Destination:
-          </label>
-          <input
-            type="text"
-            id="destination"
-            value={destination}
-            onChange={handleDestinationChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+        <div className="bg-black py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
+          <div className="max-w-lg mx-auto lg:max-w-none">
+            <form action="#" method="POST" className="grid grid-cols-1 gap-y-6">
+              <div>
+                <label htmlFor="full-name" className="sr-only">
+                  Full name
+                </label>
+                <input
+                  type="text"
+                  name="full-name"
+                  id="full-name"
+                  autoComplete="name"
+                  className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  placeholder="Full name"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  placeholder="Email"
+                />
+              </div>
+              <div>
+                <label htmlFor="phone" className="sr-only">
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  autoComplete="tel"
+                  className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  placeholder="Phone"
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="sr-only">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"
+                  placeholder="Message"
+                  defaultValue={''}
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-gray-400 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+                >
+                  <div className="mx-auto flex justify-center space-x-6"></div>
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Pick Me Up!
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Reset
-          </button>
-        </div>
-      </form>
-      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ''}>
-        <GoogleMap mapContainerClassName="w-full h-96" center={center} zoom={14}>
-          {directions && <DirectionsRenderer directions={directions} />}
-        </GoogleMap>
-      </LoadScript>
-      {distance > 0 && duration > 0 && estimate > 0 && (
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <p className="block text-gray-700 font-bold mb-2">Distance: {distance.toFixed(2)} miles</p>
-          <p className="block text-gray-700 font-bold mb-2">Duration: {duration.toFixed(0)} minutes</p>
-          <p className="block text-gray-700 font-bold mb-2">Estimate: ${estimate.toFixed(2)}</p>
-        </div>
-      )}
+      </div>
     </div>
-  );
+  </section>
+  )
 };
+
 
   export default CarServiceForm;

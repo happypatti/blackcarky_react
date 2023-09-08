@@ -1,42 +1,74 @@
-import Image from 'next/image'
-
-import { ButtonLink } from '@/components/Button'
-import { Container } from '@/components/Container'
+import { useEffect, useRef } from 'react';
+import { ButtonLink } from '@/components/Button';
+import { Container } from '@/components/Container';
+import Image from 'next/image';
+import BlackImage from '@/images/screenshots/try.png';
 
 export function Hero() {
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    const googleMapsScript = document.createElement('script');
+    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+    googleMapsScript.async = true;
+    window.document.body.appendChild(googleMapsScript);
+
+    googleMapsScript.addEventListener('load', () => {
+      const map = new window.google.maps.Map(mapRef.current, {
+        center: { lat: 38.046190, lng: -84.459330 },
+        zoom: 17,
+      });
+
+      const marker = new window.google.maps.Marker({
+        position: { lat: 38.046190, lng: -84.459330 },
+        map,
+        title: 'Used Tire and Auto Repair',
+      });
+    });
+  }, []);
+
+  function handleGetDirections() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        const url = `https://www.google.com/maps/dir/?api=1&destination=SHOP_LATITUDE,SHOP_LONGITUDE&travelmode=driving&dir_action=navigate`;
+        window.open(url.replace('SHOP_LATITUDE', '38.046190').replace('SHOP_LONGITUDE', '-84.459330'), '_blank');
+      });
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
+
   return (
     <Container className="pt-30 pb-64 text-center lg:pt-0">
-      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-        Welcome to Black Car KY{' '}
-        <span className="relative whitespace-nowrap text-blue-600">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 418 42"
-            className="absolute top-2/3 left-0 h-[0.58em] w-full fill-blue-300/70"
-            preserveAspectRatio="none"
-          >
-            <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-          </svg>
-          <span className="relative"> Central Kentucky</span>
+      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-white sm:text-7xl">
+      Used Tire & Auto Repair{' '}
+        <span className="relative whitespace-nowrap text-blue-700">
+          <span className="relative"> Lexington, KY </span>
         </span>{' '}
       </h1>
-      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-        Your premier car service for the Central Kentucky area. We offer
-        airport transportation, corporate transportation, and more.
+      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-white">
+        Welcome to Used Tire & Auto Repair, serving the Lexington, KY area. We offer used tires, new tires, full mechanic
+        service, and anything in-between.
       </p>
-      <div className="mt-10 flex justify-center space-x-6">
-        <ButtonLink href="/estimate">Get an Estimate</ButtonLink>
-      </div>
+      <br></br>
 
+      <h1 className="mx-auto max-w-4xl font-display text-2xl font-medium tracking-tight text-white sm:text-5xl">
+        FIND US{' '}
+        <br></br>
+      </h1>
+      <h1>
+        {' '}
+      </h1>
+      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-white">
+        We are located at 1225 Eastland Drive in Lexington, KY. We are open Monday through Saturday, 9am to 6pm.
+      </p>
 
+      <div className="mx-auto mt-6 max-w-2xl h-96" ref={mapRef} />
 
-
-
-
-
-
-
-
+      <button onClick={handleGetDirections} className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+  Get Directions
+</button>
     </Container>
   )
 }

@@ -5,36 +5,36 @@ import { Logo } from '@/components/Logo'
 
 export function Footer() {
   return (
-    <footer className="bg-slate-50">
+    <footer className="bg-black">
       <Container>
         <div className="py-16">
           <nav className="mt-10 text-sm" aria-label="quick links">
             <ul className="-my-1 flex justify-center space-x-6">
               <li>
-                <Link href="/#features">
+                <Link href="#tires">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                    Services
+                    Tires
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="/#features">
+                <Link href="#tires">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                    Vehicles
+                    Auto Repair
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="/#features">
+                <Link href="#">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                    Pricing
+                    About Us
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="/#features">
+                <Link href="#contact">
                   <a className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900">
-                    Drivers
+                    Contact Us
                   </a>
                 </Link>
               </li>

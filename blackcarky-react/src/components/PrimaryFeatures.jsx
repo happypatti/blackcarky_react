@@ -4,36 +4,32 @@ import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
-import backgroundImage from '@/images/background-features.jpg'
-import screenshotDoorOpen from '@/images/screenshots/door-open.png'
-import screenshotAirport from '@/images/screenshots/airport.png'
-import screenshotWedding from '@/images/screenshots/wedding.png'
+
+import screenshotStanding from '@/images/screenshots/standing.png'
 import screenshotEveryday from '@/images/screenshots/everyday.png'
+import screenshotBlackTire from '@/images/screenshots/black_tires.png'
+import screenshotUsedTire from '@/images/screenshots/used_tires.png'
+import screenshotMechanic from '@/images/screenshots/mechanic.png'
 const features = [
   {
-    title: 'Airport',
+    title: 'Used Tires',
     description:
-      "Get to the airport on time and in style. We'll make sure you get there in time for your flight(and a Drink).",
-    image: screenshotAirport,
+      "We have a wide selection of used tires for your vehicle. We also offer tire repair and tire rotation. Need used tires that are SAFE? Let us earn your confidence.",
+    image: screenshotUsedTire,
   },
   {
-    title: 'Executive',
+    title: 'New Tires',
     description:
-      "Want to feel like a CEO? Or perhaps you already are a CEO? Either way, we'll make you feel like one.",
-    image: screenshotDoorOpen,
+      "Ready to pull the trigger on some new tires? We will help you find the right tires for your vehicle and budget. We will install them the same day.",
+    image: screenshotBlackTire,
   },
   {
-    title: 'Special Events',
+    title: 'Everything-in-between',
     description:
-    "Weddings, Proms, Birthdays, you name it. We'll make sure you get there in style.",
-    image: screenshotWedding,
+    "Patches, inspections, balancing, rotations, and more. We'll make sure your tires are safe and ready to go.",
+    image: screenshotStanding,
   },
-  {
-    title: 'Car Service',
-    description:
-    "Everyday car service for your everyday needs. We'll make sure you get there in style.",
-    image: screenshotEveryday,
-  },
+
 ]
 
 export function PrimaryFeatures() {
@@ -56,30 +52,20 @@ export function PrimaryFeatures() {
 
   return (
     <section
-      id="features"
+      id="tires"
       aria-labelledby="features-title"
-      className="relative overflow-hidden bg-blue-600 pt-20 pb-28 sm:py-32"
+      className="relative overflow-hidden bg-black pt-20 pb-28 sm:py-32"
     >
-      <div className="absolute top-1/2 left-1/2 -translate-x-[44%] -translate-y-[42%]">
-        <Image
-          src={backgroundImage}
-          alt=""
-          width={2245}
-          height={1636}
-          layout="fixed"
-          unoptimized
-        />
-      </div>
       <Container className="relative">
         <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
           <h2
             id="features-title"
             className="font-display text-3xl tracking-tight text-white sm:text-4xl md:text-5xl"
           >
-            Get to your destination in style.
+           Tires? We got you covered.
           </h2>
           <p className="mt-6 text-lg tracking-tight text-blue-100">
-            Black Car KY offers a wide range of transportation needs.
+            Used tires, new tires, and anything in-between. 
           </p>
         </div>
         <Tab.Group
