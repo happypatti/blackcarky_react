@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { ButtonLink } from '@/components/Button';
 import { Container } from '@/components/Container';
-import Image from 'next/image';
-import BlackImage from '@/images/screenshots/try.png';
 
 export function Hero() {
   const mapRef = useRef(null);
