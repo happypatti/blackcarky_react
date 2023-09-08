@@ -7,7 +7,7 @@ export function Hero() {
 
   useEffect(() => {
     const googleMapsScript = document.createElement('script');
-    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+    googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
     googleMapsScript.async = true;
     window.document.body.appendChild(googleMapsScript);
 
